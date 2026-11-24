@@ -48,4 +48,12 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Task::class, Project::class);
     }
+
+    /**
+     * Relasi ke Riwayat Aktivitas milik User
+     */
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
 }

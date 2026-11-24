@@ -39,15 +39,6 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar.');
-    }
-
     public function showRegister()
     {
         if (Auth::check()) {
@@ -82,5 +73,14 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         return redirect()->route('dashboard')->with('success', 'Registrasi berhasil! Akun Anda telah siap digunakan.');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar.');
     }
 }

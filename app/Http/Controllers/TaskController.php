@@ -16,7 +16,8 @@ class TaskController extends Controller
 {
     public function __construct(
         protected TaskService $taskService
-    ) {}
+    ) {
+    }
 
     public function index(Request $request)
     {
@@ -60,9 +61,11 @@ class TaskController extends Controller
     {
         Gate::authorize('view', $task);
 
-        $task->load(['project' => function ($q) {
-            $q->withTrashed();
-        }]);
+        $task->load([
+            'project' => function ($q) {
+                $q->withTrashed();
+            }
+        ]);
 
         $activityLogs = $task->activityLogs()->with('user')->take(20)->get();
 
@@ -131,6 +134,6 @@ class TaskController extends Controller
         $this->taskService->deleteTask($task);
 
         return redirect()->route('projects.show', $projectId)
-            ->with('success', 'Tugas berhasil dihapus (soft delete) dan dicatat pada audit log.');
+            ->with('success', 'Tugas berhasil dihapus.');
     }
 }
