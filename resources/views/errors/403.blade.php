@@ -22,8 +22,9 @@
     @php
         $message = $exception->getMessage() ?: 'Anda tidak memiliki hak akses untuk melihat atau mengelola data ini.';
         $isProject = (str_contains(strtolower($message), 'proyek') || request()->is('*projects*'));
+        $isTask = str_contains(strtolower($message), 'tugas') || request()->is('*tasks*');
 
-        $entityName = $isProject ? 'Proyek' : 'Data';
+        $entityName = $isTask ? 'Tugas' : ($isProject ? 'Proyek' : 'Data');
         $title = "Akses ke {$entityName} Dibatasi";
     @endphp
 
@@ -40,10 +41,17 @@
         <!-- Warning / Shield Icon -->
         <div
             class="relative inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-rose-50 text-rose-600 mb-6 shadow-inner ring-8 ring-rose-50/50">
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+            @if($isTask)
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            @else
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            @endif
         </div>
 
         <!-- Error Code & Title -->
@@ -72,21 +80,33 @@
                 <span>Mengapa Anda melihat halaman ini?</span>
             </div>
             <p class="pl-6 text-slate-500 leading-normal">
-                Data ini dilindungi oleh aturan keamanan <b>Security Policy</b>.
-                Setiap pengguna dibatasi hanya dapat mengelola data milik sendiri.
+                @if($isTask)
+                    Tugas ini terhubung ke proyek milik pengguna lain. Sesuai aturan keamanan <b>Security Policy</b>, Anda
+                    hanya memiliki hak akses terhadap tugas yang berada di dalam proyek milik akun Anda sendiri.
+                @else
+                    Data ini dilindungi oleh aturan keamanan <b>Security Policy</b>.
+                    Setiap pengguna dibatasi hanya dapat mengelola data milik sendiri.
+                @endif
             </p>
         </div>
 
         <!-- Navigation Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('projects.index') }}"
+            <a href="{{ url()->previous() !== url()->current() ? url()->previous() : ($isTask ? route('tasks.index') : route('projects.index')) }}"
                 class="w-full sm:w-auto px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-xl transition cursor-pointer">
                 &larr; Kembali
             </a>
-            <a href="{{ route('projects.index') }}"
-                class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow transition cursor-pointer">
-                Daftar Proyek Saya
-            </a>
+            @if($isTask)
+                <a href="{{ route('tasks.index') }}"
+                    class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow transition cursor-pointer">
+                    Daftar Tugas Saya
+                </a>
+            @else
+                <a href="{{ route('projects.index') }}"
+                    class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow transition cursor-pointer">
+                    Daftar Proyek Saya
+                </a>
+            @endif
             <a href="{{ route('dashboard') }}"
                 class="w-full sm:w-auto px-5 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-semibold rounded-xl transition cursor-pointer">
                 Dashboard
