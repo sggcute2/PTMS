@@ -38,4 +38,5 @@ Route::middleware('auth')->group(function () {
 
     // Audit Trail Activity Logs
     Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity_logs.index');
+    Route::get('/activity-logs/{activity_log}', [ActivityLogController::class, 'show'])->name('activity_logs.show');
 });
