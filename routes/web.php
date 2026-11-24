@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Projects resource
+    Route::resource('projects', ProjectController::class);
+
+    // Tasks resource
+    Route::resource('tasks', TaskController::class);
+
+    // Audit Trail Activity Logs
+    Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity_logs.index');
 });
