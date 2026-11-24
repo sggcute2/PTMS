@@ -31,7 +31,9 @@ Route::middleware('auth')->group(function () {
     // Projects resource
     Route::resource('projects', ProjectController::class);
 
-    // Tasks resource
+    // Tasks resource & status update
+    Route::post('tasks/{task}/advance-status', [TaskController::class, 'advanceStatus'])->name('tasks.advanceStatus');
+    Route::patch('tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
     Route::resource('tasks', TaskController::class);
 
     // Audit Trail Activity Logs

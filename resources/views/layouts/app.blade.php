@@ -41,6 +41,10 @@
                             class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('projects.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
                             Proyek
                         </a>
+                        <a href="{{ route('tasks.index') }}"
+                            class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('tasks.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                            Tugas
+                        </a>
                     </nav>
                 </div>
                 <div class="flex items-center space-x-4">
