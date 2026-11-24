@@ -37,6 +37,10 @@
                             class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
                             Dashboard
                         </a>
+                        <a href="{{ route('projects.index') }}"
+                            class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('projects.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                            Proyek
+                        </a>
                     </nav>
                 </div>
                 <div class="flex items-center space-x-4">
