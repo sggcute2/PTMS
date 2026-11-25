@@ -1,7 +1,7 @@
 # Test Plan - Project & Task Management System (PTMS)
 
 ## 1. Pendahuluan
-Dokumen ini mendefinisikan strategi, cakupan, arsitektur, dan alur pengujian perangkat lunak untuk aplikasi **PTMS (Project & Task Management System)** berbasis **Laravel 13** dan **PHP 8.4/8.3**.
+Dokumen ini mendefinisikan strategi, cakupan, arsitektur, dan alur pengujian perangkat lunak untuk aplikasi **PTMS (Project & Task Management System)** berbasis **Laravel 13** dan **PHP 8.3**.
 
 ## 2. Tujuan Pengujian
 - Memastikan integritas data transaksi lintas tabel (multi-table atomic transaction).
