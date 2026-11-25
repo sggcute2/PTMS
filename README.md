@@ -118,6 +118,12 @@ Atau cukup gunakan **Docker & Docker Compose**.
    ```
    Akses aplikasi di **[http://127.0.0.1:8000](http://127.0.0.1:8000)**.
 
+7. **Demo Login:**
+   ```
+   Email : user1@example.com
+   Password : password123
+   ```
+
 ---
 
 ## 🧪 Pengujian Otomatis (Automated Tests)
